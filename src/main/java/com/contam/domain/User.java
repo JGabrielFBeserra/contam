@@ -1,10 +1,7 @@
 package com.contam.domain;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
 @Entity
 @Table(name = "users")
@@ -12,6 +9,7 @@ import lombok.Setter;
 @NoArgsConstructor
 @AllArgsConstructor
 @Getter
+@ToString
 public class User {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -29,6 +27,7 @@ public class User {
     private String email;
     @Column(name = "matricula", nullable = false, unique = true)
     private String matricula;
+    @ToString.Exclude
     @Column(name = "senha", nullable = false)
     private String senha;
     @Column(name = "status")

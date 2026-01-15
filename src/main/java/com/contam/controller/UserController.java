@@ -28,6 +28,7 @@ public class UserController {
 
     @PostMapping
     public ResponseEntity<UserCreateResponseDTO> create(@Valid @RequestBody UserCreateRequestDTO dto) {
+        System.out.println("DTO recebido: " + dto);
         var user = userMapper.DTOtoEntity(dto);
         var userSalvo = userService.create(user);
         var response = userMapper.EntitytoResponseDTO(userSalvo);
