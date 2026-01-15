@@ -1,32 +1,21 @@
 package com.contam.dto.response;
 
-import lombok.Getter;
-import lombok.Setter;
-
 import java.time.LocalDateTime;
 import java.util.Map;
 
-@Getter
-@Setter
-public class ErrorResponse {
-
-    private int status;
-    private String message;
-    private LocalDateTime timestamp;
-    private Map<String, String> errors;
-
-    // Erros Simples
+public record ErrorResponse(
+        int status,
+        String message,
+        LocalDateTime timestamp,
+        Map<String, String> errors
+) {
+    // Construtor para erros simples
     public ErrorResponse(int status, String message) {
-        this.status = status;
-        this.message = message;
-        this.timestamp = LocalDateTime.now();
+        this(status, message, LocalDateTime.now(), null);
     }
 
-    // Construtor para Erros de Validação
+    // Construtor para erros de validação
     public ErrorResponse(int status, String message, Map<String, String> errors) {
-        this.status = status;
-        this.message = message;
-        this.errors = errors;
-        this.timestamp = LocalDateTime.now();
+        this(status, message, LocalDateTime.now(), errors);
     }
 }
