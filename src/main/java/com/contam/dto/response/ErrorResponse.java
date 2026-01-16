@@ -9,12 +9,10 @@ public record ErrorResponse(
         LocalDateTime timestamp,
         Map<String, String> errors
 ) {
-    // Construtor para erros simples
     public ErrorResponse(int status, String message) {
         this(status, message, LocalDateTime.now(), null);
     }
 
-    // Construtor para erros de validação
     public ErrorResponse(int status, String message, Map<String, String> errors) {
         this(status, message, LocalDateTime.now(), errors);
     }
