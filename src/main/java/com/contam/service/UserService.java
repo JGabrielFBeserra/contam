@@ -1,6 +1,7 @@
 package com.contam.service;
 
 import com.contam.domain.User;
+import com.contam.dto.response.UserListResponseDTO;
 import com.contam.exception.EmailAlreadyExistsException;
 import com.contam.exception.RegistrationAlreadyExistsException;
 import com.contam.exception.UsernameAlreadyExistsException;
@@ -8,6 +9,8 @@ import com.contam.repository.UserRepository;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -30,5 +33,10 @@ public class UserService {
             throw new RegistrationAlreadyExistsException("Essa Matrícula já tem cadastro: " + user.getMatricula());
         }
         return userRepository.save(user);
+    }
+
+    @Transactional
+    public Page<UserListResponseDTO> listOn(Pageable pageable) {
+        return userRepository.findByStatusTrue(pageable).map(UserListResponseDTO::new);
     }
 }
